@@ -72,6 +72,7 @@ typedef struct mazeInletAndOutlet *InletAndOutlet;
 
 //迷宫节点栈
 struct MazeSt {
+	int Capacity;
 	int top;
 	MazeNode *mazeNode;
 };
@@ -122,6 +123,7 @@ MazeNodeStack MazeNodeStack_init(int n)
 
 	if (mSt) {
 		mSt->top = -1;
+		mSt->Capacity = n;
 		mSt->mazeNode = (MazeNode*)malloc(sizeof(MazeNode) * n);
 		if (mSt->mazeNode) {
 			return mSt;
@@ -136,19 +138,36 @@ MazeNodeStack MazeNodeStack_init(int n)
 //入栈
 void Push(MazeNodeStack mSt, MazeNode mN)
 {
-	mSt->mazeNode[++mSt->top] = mN;
+	if(!isFull(mSt))
+		return mSt->mazeNode[++mSt->top] = mN;
+	else{
+		printf("error Push");
+		return NULL;
+	}
+	   
+	
 }
 
 //出栈
 MazeNode Pop(MazeNodeStack mSt) 
 {
-	return mSt->mazeNode[mSt->top--];
+	if(!isEmpty(mSt))
+	        return mSt->mazeNode[mSt->top--];
+	else{
+		printf("error Pop");
+		return NULL;
+	}
 }
 
 //判断栈是否为空
 Bool isEmpty(MazeNodeStack mSt)
 {
-	return mSt->top == -1 ? True : False;
+	return mSt->top == -1;
+}
+//判断栈是否满
+Bool isFull(MazeNodeStack mSt)
+{
+	return mSt->top == mSt->Capacity - 1;
 }
 
 //初始化迷宫,x和y轴初始值为1
