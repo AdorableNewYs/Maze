@@ -128,11 +128,15 @@ MazeNodeStack MazeNodeStack_init(int n)
 		if (mSt->mazeNode) {
 			return mSt;
 		}
-		else
+		else{
 			printf("error:function MazeNodeStack_init()->mSt->mazeNode");
+			return NULL;
+		}
 	}
-	else
+	else{
 		printf("error:function MazeNodeStack_init()->mSt");
+		return NULL;
+	}
 }
 
 //入栈
