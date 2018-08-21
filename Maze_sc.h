@@ -11,9 +11,9 @@
 #define False (0)
 #define yes (1)
 #define no (0)
-//迷宫的边界没有墙的表示
+//迷宫边界没有墙的表示方式
 #define Not_Wall (-1)
-//用途暂时为判断节点墙的方向
+//用途暂时为判断节点的墙的方向
 #define Left (0)
 #define Right (1)
 #define Up (2)
@@ -46,7 +46,7 @@ struct coordinate
 //迷宫结构体
 struct Mazee {
 	struct coordinate *mazeNode;
-	//Row和Column不为0
+	//Row和Column都不为0
 	unsigned int Row;
 	unsigned int Column;
 };
@@ -241,7 +241,7 @@ int findIndex(Maze m,unsigned int x,unsigned int y)
 	return (i >= 0 && i < m->Row*m->Column) ? i : False;
 }
 
-//删除一个墙(避免存在一种情况：目标节点一个方向的墙打通了，但和其共享该墙的相邻节点对应的墙却存在)
+//删除一个墙(避免存在一种情况：目标节点一个方向的墙打通了，但和其共享该墙的相邻节点还没反应过来)
 Bool DeleteWall(Maze m,unsigned int x,unsigned int y, int direction)
 {
 	if (direction == Left && m->mazeNode[findIndex(m, x, y)].left_haveWall == yes) {
@@ -267,7 +267,7 @@ Bool DeleteWall(Maze m,unsigned int x,unsigned int y, int direction)
 	return True;
 }
 
-//垃圾函数。判断whichWall参数有多少位（10进制）
+//如果满分是10分这个函数顶多2分。。。判断whichWall参数有多少位（10进制）
 int whichWallNum(int whichWall)
 {
 	int i = 0;
